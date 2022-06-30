@@ -7,17 +7,17 @@ class JewelStone:
 class Solution:
     def getMaxValue(self, stones: [JewelStone], capacity: int) -> int:
         n = len(stones)
-        dp = [[0]*(capacity+1) for i in range(n+1)]
-        for i in range(1, n+1):
-            w = stones[i-1].weight
-            v = stones[i-1].value
+        dp = [0]*(capacity+1)
+        for i in range(n):
+            w = stones[i].weight
+            v = stones[i].value
             for j in range(1, capacity+1):
                 if j >= w:
-                    dp[i][j] = max(dp[i-1][j-w] + v, dp[i-1][j])
+                    dp[j] = max(dp[j-w] + v, dp[j])
                 else:
-                    dp[i][j] = dp[i-1][j]
+                    dp[j] = dp[j]
 
-        return dp[n][capacity]
+        return dp[capacity]
 
 
 li = [(1, 3), (2, 4), (3, 5), (4, 7)]
