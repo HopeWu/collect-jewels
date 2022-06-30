@@ -19,7 +19,7 @@ class Solution:
             return self.memory[position][capacity]
         if position == 0:
             if capacity >= self.stones[position].weight:
-                result = stones[position].value
+                result = self.stones[position].value
                 self.memory[position][capacity] = result
                 return result
             else:
