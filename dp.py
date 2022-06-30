@@ -11,11 +11,8 @@ class Solution:
         for i in range(n):
             w = stones[i].weight
             v = stones[i].value
-            for j in range(capacity, 0, -1):
-                if j >= w:
-                    dp[j] = max(dp[j-w] + v, dp[j])
-                else:
-                    dp[j] = dp[j]
+            for j in range(capacity, w-1, -1):
+                dp[j] = max(dp[j-w] + v, dp[j])
 
         return dp[capacity]
 
