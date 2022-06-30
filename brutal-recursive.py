@@ -27,7 +27,7 @@ class Solution:
     def getMaxValue(self, stones: [JewelStone], capacity: int) -> int:
         self.assign(stones, capacity)
         position = len(stones) - 1
-        self.rcrsv(position, capacity)
+        return self.rcrsv(position, capacity)
 
 
 li = [(1, 3), (2, 4), (3, 5), (4, 7)]
