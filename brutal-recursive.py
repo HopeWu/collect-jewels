@@ -8,21 +8,33 @@ class Solution:
     def assign(self, stones: [JewelStone], capacity: int):
         self.stones = stones
         self.capacity = capacity
+        self.memory = [[-1]*(capacity+1) for i in range(len(stones))]
 
     def rcrsv(self, position: int, capacity: int):
         if capacity <= 0:
             return 0
         if position < 0:
             return 0
+        if self.memory[position][capacity] != -1:
+            return self.memory[position][capacity]
         if position == 0:
             if capacity >= self.stones[position].weight:
-                return stones[position].value
+                result = stones[position].value
+                self.memory[position][capacity] = result
+                return result
             else:
+                self.memory[position][capacity] = 0
                 return 0
         if capacity - self.stones[position].weight < 0:
-            return self.rcrsv(position - 1, capacity)
-        return max(self.rcrsv(position - 1, capacity - self.stones[position].weight) + self.stones[position].value, 
-                   self.rcrsv(position - 1, capacity))
+            result = self.rcrsv(position - 1, capacity)
+            self.memory[position][capacity] = result
+            return result
+
+        result = max(self.rcrsv(position - 1, capacity - self.stones[position].weight) +
+                     self.stones[position].value,
+                     self.rcrsv(position - 1, capacity))
+        self.memory[position][capacity] = result
+        return result
 
     def getMaxValue(self, stones: [JewelStone], capacity: int) -> int:
         self.assign(stones, capacity)
